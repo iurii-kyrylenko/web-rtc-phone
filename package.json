@@ -2,7 +2,7 @@
   "name": "kaios-web-phone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://iurii-kyrylenko.github.io/web-rtc--phone",
+  "homepage": "https://iurii-kyrylenko.github.io/web-rtc-phone",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
