@@ -1,0 +1,15 @@
+.header {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #9b27af;
+  padding: 3px 10px;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}

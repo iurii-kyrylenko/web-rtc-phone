@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "KaiOS Web Phone",
+  "description": "Simple audio call",
+  "type": "web",
+  "launch_path": "/index.html",
+  "icons": {
+    "56": "/assets/icons/web_phone_56.png",
+    "112": "/assets/icons/web_phone_112.png"
+  },
+  "permissions": {
+    "audio-capture": {
+      "description": "Required to capture audio using getUserMedia()"
+    }
+  },
+  "developer": {
+    "name": "Iurii Kyrylenko",
+    "url": "https://github.com/iurii-kyrylenko"
+  },
+  "locales": {
+    "en-US": {
+      "name": "KaiOS Web Phone",
+      "subtitle": "Simple audio call",
+      "description": "Simple audio call"
+    }
+  },
+  "default_locale": "en-US"
+}

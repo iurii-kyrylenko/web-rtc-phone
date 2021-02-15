@@ -1,0 +1,19 @@
+.inputForm {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.label {
+  width: 70px;
+  display: inline-block;
+}
+
+.input {
+  width: 100px;
+}
+
+.code {
+  font-weight: bold;
+}

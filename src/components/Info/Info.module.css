@@ -1,0 +1,18 @@
+.info {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.prompt {
+  font-style: italic;
+}
+
+.message {
+  font-style: normal;
+  font-weight: bold;
+  /* font-size: small; */
+  color:rgb(165, 42, 42)
+}
