@@ -1,7 +1,8 @@
 import Peer from "peerjs";
 import { peerConfig } from "./config";
 
-const WAIT_FOR_ANSWER_MS = 5000;
+const WAIT_FOR_ANSWER_MS = 10000;
+let waitTimer = null;
 
 let peer = null;
 let localStream = null;
@@ -23,7 +24,10 @@ export function createPeer(code, cb) {
     cb.close();
   });
 
-  peer.on("error", err => cb.error(err));
+  peer.on("error", err => {
+    clearTimeout(waitTimer);
+    cb.error(err);
+  });
 
   peer.on("call", mediaConnection => {
     // Remote peer answers to only one call
@@ -31,11 +35,13 @@ export function createPeer(code, cb) {
       return;
     }
 
-    callAnswered = true;
-
     mediaConnection.answer(localStream);
-    const rmCode = mediaConnection.peer;
-    mediaConnection.on("stream", stream => cb.stream(stream, rmCode));
+
+    mediaConnection.on("stream", stream => {
+      callAnswered = true;
+      const rmCode = mediaConnection.peer;
+      cb.stream(stream, rmCode);
+    });
   });
 }
 
@@ -47,13 +53,13 @@ export function callPear(rmCode, cb) {
   const mediaConnection = peer.call(rmCode, localStream);
 
   // Wait for remote stream
-  const timeout = setTimeout(
+  waitTimer = setTimeout(
     () => !mediaConnection.open && cb.timeout(),
     WAIT_FOR_ANSWER_MS
   );
 
   mediaConnection.on("stream", stream => {
-    clearTimeout(timeout);
+    clearTimeout(waitTimer);
     cb.stream(stream);
   });
 }

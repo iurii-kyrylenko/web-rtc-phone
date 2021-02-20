@@ -52,7 +52,7 @@ const App = () => {
         dispatch({ type: "CONNECT", data: id });
       },
       timeout() {
-        dispatch({ type: "MESSAGE", data: `Could not connect to peer ${id}` });
+        dispatch({ type: "MESSAGE", data: `Contact "${id}" is probably busy` });
       }
     });
   };
