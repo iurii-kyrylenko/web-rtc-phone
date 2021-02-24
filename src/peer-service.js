@@ -6,7 +6,7 @@ let waitTimer = null;
 
 let peer = null;
 let localStream = null;
-let callAnswered = false;
+let isBusy = false;
 
 export function createPeer(code, cb) {
   peer = new Peer(code, peerConfig);
@@ -14,7 +14,7 @@ export function createPeer(code, cb) {
   peer.on("open", id => {
     navigator.mediaDevices.getUserMedia({ video: false, audio: true })
       .then(stream => localStream = stream)
-      .then(() => callAnswered = false)
+      .then(() => isBusy = false)
       .then(() => cb.open(id))
       .catch(err => cb(err));
   });
@@ -30,15 +30,15 @@ export function createPeer(code, cb) {
   });
 
   peer.on("call", mediaConnection => {
-    // Remote peer answers to only one call
-    if (callAnswered) {
+    // Prevent answer in case we have already got incoming stream
+    if (isBusy) {
       return;
     }
 
     mediaConnection.answer(localStream);
 
     mediaConnection.on("stream", stream => {
-      callAnswered = true;
+      isBusy = true;
       const rmCode = mediaConnection.peer;
       cb.stream(stream, rmCode);
     });
@@ -60,6 +60,7 @@ export function callPear(rmCode, cb) {
 
   mediaConnection.on("stream", stream => {
     clearTimeout(waitTimer);
+    isBusy = true;
     cb.stream(stream);
   });
 }
